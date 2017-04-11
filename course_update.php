@@ -16,11 +16,13 @@
 		$idError = null;
 		$nameError = null;
 		$descriptionError = null;
+		$instructorError = null;
 		
 		// keep track post values
 		$id = $_POST['course_id'];
 		$name = $_POST['course_name'];
 		$description = $_POST['course_description'];
+		$instructor = $_POST['course_instructor'];
 		
 		// validate input
 		$valid = true;
@@ -39,13 +41,18 @@
 			$valid = false;
 		}
 		
+		if (empty($instructor)) {
+			$instructorError = 'Please enter an instructor';
+			$valid = false;
+		}
+		
 		// update data
 		if ($valid) {
 			$pdo = Database::connect();
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$sql = "UPDATE courses  set course_id = ?, course_name = ?, course_description =? WHERE course_id = ?";
+			$sql = "UPDATE courses  set course_id = ?, course_name = ?, course_description =?, course_instructor=? WHERE course_id = ?";
 			$q = $pdo->prepare($sql);
-			$q->execute(array($id,$name,$description,$id));
+			$q->execute(array($id,$name,$description,$instructor,$id));
 			Database::disconnect();
 			header("Location: courses.php");
 		}
@@ -59,6 +66,7 @@
 		$id = $data['course_id'];
 		$name = $data['course_name'];
 		$description = $data['course_description'];
+		$instructor = $data['course_instructor'];
 		Database::disconnect();
 	}
 ?>
@@ -105,6 +113,15 @@
 					      	<input name="course_description" type="text"  placeholder="Description" value="<?php echo !empty($description)?$description:'';?>">
 					      	<?php if (!empty($descriptionError)): ?>
 					      		<span class="help-inline"><?php echo $descriptionError;?></span>
+					      	<?php endif;?>
+					    </div>
+					  </div>
+					  <div class="control-group <?php echo !empty($instructorError)?'error':'';?>">
+					    <label class="control-label">Instructor's Last Name</label>
+					    <div class="controls">
+					      	<input name="course_instructor" type="text"  placeholder="Instructor" value="<?php echo !empty($instructor)?$instructor:'';?>">
+					      	<?php if (!empty($instructorError)): ?>
+					      		<span class="help-inline"><?php echo $instructorError;?></span>
 					      	<?php endif;?>
 					    </div>
 					  </div>

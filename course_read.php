@@ -59,6 +59,14 @@
 						    </label>
 					    </div>
 					  </div>
+					  <div class="control-group">
+					    <label class="control-label">Instructor Name</label>
+					    <div class="controls">
+					      	<label class="checkbox">
+						     	<?php echo $data['course_instructor'];?>
+						    </label>
+					    </div>
+					  </div>
 					  <div class="form-actions">
 						<a class="btn" href="courses.php">Back</a>
 					  </div>

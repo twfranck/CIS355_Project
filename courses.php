@@ -19,6 +19,7 @@
                           <th>Course ID</th>
                           <th>Course Name</th>
                           <th>Course Description</th>
+						  <th>Instructor</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -31,6 +32,7 @@
                                    echo '<td>'. $row['course_id'] . '</td>';
                                    echo '<td>'. $row['course_name'] . '</td>';
                                    echo '<td>'. $row['course_description'] . '</td>';
+								   echo '<td>'. $row['course_instructor'] . '<td>';
                                    echo '<td width=250>';
                                    echo '<a class="btn" href="course_read.php?course_id='.$row['course_id'].'">Read</a>';
                                    echo '&nbsp;';

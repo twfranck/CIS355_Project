@@ -27,7 +27,7 @@
 		if ($valid) {
 			$pdo = Database::connect();
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$sql = "INSERT INTO registration (course_id,instructor_id) values(?, ?)";
+			$sql = "INSERT INTO registration (course_id,instructor_id) SELECT courses.course_id, instructors.instructor_id FROM courses, instructors WHERE courses.course_id = ? AND instructors.last_name = ?";
 			$q = $pdo->prepare($sql);
 			$q->execute(array($id,$instructor));
 			Database::disconnect();
