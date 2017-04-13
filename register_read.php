@@ -1,4 +1,14 @@
-<?php 
+<?php
+
+		session_start();
+if(!isset($_SESSION["fr_person_id"])){ // if "user" not set,
+	session_destroy();
+	header('Location: login.php');   // go to login page
+	exit;
+}
+
+$sessionid = $_SESSION['fr_person_id'];
+
 	require 'database.php';
 	$id = null;
 	if ( !empty($_GET['course_id'])) {
@@ -30,35 +40,38 @@
     <div class="container">
     
     			<div class="span10 offset1">
-    				<div class="row">
-		    			<h3>Course Information</h3>
+    				<div class="row page-header">
+		    			<h1>Course Information</h1>
 		    		</div>
 		    		
 	    			<div class="form-horizontal" >
 					  <div class="control-group">
-					    <label class="control-label">ID</label>
+					    <h4><u>ID</u></h4>
 					    <div class="controls">
 						    <label class="checkbox">
 						     	<?php echo $data['course_id'];?>
 						    </label>
 					    </div>
 					  </div>
+                      </br>
 					  <div class="control-group">
-					    <label class="control-label">Course Name</label>
+					    <h4><u>Course Name</u></h4>
 					    <div class="controls">
 					      	<label class="checkbox">
 						     	<?php echo $data['course_name'];?>
 						    </label>
 					    </div>
 					  </div>
+                      </br>
 					  <div class="control-group">
-					    <label class="control-label">Instructor</label>
+					    <h4><u>Instructor</u></h4>
 					    <div class="controls">
 					      	<label class="checkbox">
 						     	<?php echo $data['instructor'];?>
 						    </label>
 					    </div>
 					  </div>
+                      </br>
 					  <div class="form-actions">
 						<a class="btn" href="registration.php">Back</a>
 					  </div>

@@ -1,3 +1,5 @@
+<a href="index.php" class="btn btn-primary" style="float: right;" >Main Menu</a>
+<a href="index.php" class="btn btn-primary" style="float: right;" >Main Menu</a>
 <?php 
 
 session_start();
@@ -22,8 +24,8 @@ $sessionid = $_SESSION['fr_person_id'];
 <body>
     <div class="container">
             <div class="row page-header">
-                <a href="index.php" class="btn btn-primary" style="float: right;" >Main Menu</a>
                 <h1>Courses</h1>
+                <a href="index.php" class="btn btn-primary" style="float: right;" >Main Menu</a>
             </div>
             <div class="row">
                  

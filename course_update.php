@@ -1,5 +1,14 @@
 <?php 
 	
+		session_start();
+if(!isset($_SESSION["fr_person_id"])){ // if "user" not set,
+	session_destroy();
+	header('Location: login.php');   // go to login page
+	exit;
+}
+
+$sessionid = $_SESSION['fr_person_id'];
+
 	require 'database.php';
 
 	$id = null;
@@ -84,15 +93,16 @@
     <div class="container">
     
     			<div class="span10 offset1">
-    				<div class="row">
-		    			<h3>Update Course Information</h3>
+    				<div class="row page-header">
+		    			<h1>Update Course Information</h1>
 		    		</div>
     		
 	    			<form class="form-horizontal" action="course_update.php?id=<?php echo $id?>" method="post">
-					  <div class="control-group <?php echo !empty($idError)?'error':'';?>">
+					  <div class="col-lg-4">
+                        <div class="control-group <?php echo !empty($idError)?'error':'';?>">
 					    <label class="control-label">Course ID</label>
 					    <div class="controls">
-					      	<input name="course_id" type="text"  placeholder="ID" value="<?php echo !empty($id)?$id:'';?>">
+					      	<input class="form-control" name="course_id" type="text"  placeholder="ID" id="inputDefault" value="<?php echo !empty($id)?$id:'';?>">
 					      	<?php if (!empty($idError)): ?>
 					      		<span class="help-inline"><?php echo $idError;?></span>
 					      	<?php endif; ?>
@@ -101,7 +111,7 @@
 					  <div class="control-group <?php echo !empty($nameError)?'error':'';?>">
 					    <label class="control-label">Course Name</label>
 					    <div class="controls">
-					      	<input name="course_name" type="text" placeholder="First" value="<?php echo !empty($name)?$name:'';?>">
+					      	<input class="form-control" name="course_name" type="text" placeholder="First" id="inputDefault" value="<?php echo !empty($name)?$name:'';?>">
 					      	<?php if (!empty($nameError)): ?>
 					      		<span class="help-inline"><?php echo $nameError;?></span>
 					      	<?php endif;?>
@@ -110,7 +120,7 @@
 					  <div class="control-group <?php echo !empty($descriptionError)?'error':'';?>">
 					    <label class="control-label">Description</label>
 					    <div class="controls">
-					      	<input name="course_description" type="text"  placeholder="Description" value="<?php echo !empty($description)?$description:'';?>">
+					      	<input class="form-control" name="course_description" type="text"  placeholder="Description" id="inputDefault" value="<?php echo !empty($description)?$description:'';?>">
 					      	<?php if (!empty($descriptionError)): ?>
 					      		<span class="help-inline"><?php echo $descriptionError;?></span>
 					      	<?php endif;?>
@@ -119,16 +129,18 @@
 					  <div class="control-group <?php echo !empty($instructorError)?'error':'';?>">
 					    <label class="control-label">Instructor's Last Name</label>
 					    <div class="controls">
-					      	<input name="course_instructor" type="text"  placeholder="Instructor" value="<?php echo !empty($instructor)?$instructor:'';?>">
+					      	<input class="form-control" name="course_instructor" type="text"  placeholder="Instructor" id="inputDefault" value="<?php echo !empty($instructor)?$instructor:'';?>">
 					      	<?php if (!empty($instructorError)): ?>
 					      		<span class="help-inline"><?php echo $instructorError;?></span>
 					      	<?php endif;?>
 					    </div>
 					  </div>
+                      </br>
 					  <div class="form-actions">
 						  <button type="submit" class="btn btn-success">Update</button>
 						  <a class="btn" href="courses.php">Back</a>
 						</div>
+                     </div>
 					</form>
 				</div>
 				

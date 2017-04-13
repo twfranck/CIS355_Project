@@ -1,15 +1,28 @@
+<?php 
+
+session_start();
+if(!isset($_SESSION["fr_person_id"])){ // if "user" not set,
+	session_destroy();
+	header('Location: login.php');   // go to login page
+	exit;
+}
+
+$sessionid = $_SESSION['fr_person_id'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link   href="css/bootstrap.min.css" rel="stylesheet">
+    <link   href="css/bootstrap.css" rel="stylesheet">
     <script src="js/bootstrap.min.js"></script>
 </head>
 
 <body>
     <div class="container">
-    		<div class="row">
-    			<h3>Instructors</h3>
+    		<div class="row page-header">
+                <a href="index.php" class="btn btn-primary" style="float: right;" >Main Menu</a>
+    			<h1>Instructors</h1>
     		</div>
 			<div class="row">
 				

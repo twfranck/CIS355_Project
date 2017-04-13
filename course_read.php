@@ -1,4 +1,14 @@
 <?php 
+
+	session_start();
+if(!isset($_SESSION["fr_person_id"])){ // if "user" not set,
+	session_destroy();
+	header('Location: login.php');   // go to login page
+	exit;
+}
+
+$sessionid = $_SESSION['fr_person_id'];
+
 	require 'database.php';
 	$id = null;
 	if ( !empty($_GET['course_id'])) {
@@ -30,43 +40,45 @@
     <div class="container">
     
     			<div class="span10 offset1">
-    				<div class="row">
-		    			<h3>Course Information</h3>
+    				<div class="row page-header">
+		    			<h1>Course Information</h1>
 		    		</div>
 		    		
 	    			<div class="form-horizontal" >
 					  <div class="control-group">
-					    <label class="control-label">ID</label>
+					    <h4><u>ID</u></h4>
 					    <div class="controls">
 						    <label class="checkbox">
 						     	<?php echo $data['course_id'];?>
 						    </label>
 					    </div>
+                      </br>
 					  </div>
 					  <div class="control-group">
-					    <label class="control-label">Course Name</label>
-					    <div class="controls">
+					    <h4><u>Course Name</u></h4>
 					      	<label class="checkbox">
 						     	<?php echo $data['course_name'];?>
 						    </label>
-					    </div>
 					  </div>
+                      </br>
 					  <div class="control-group">
-					    <label class="control-label">Course Description</label>
+					    <h4><u>Course Description</u></h4>
 					    <div class="controls">
 					      	<label class="checkbox">
 						     	<?php echo $data['course_description'];?>
 						    </label>
 					    </div>
 					  </div>
+                      </br>
 					  <div class="control-group">
-					    <label class="control-label">Instructor Name</label>
+					    <h4><u>Instructor Name</u></h4>
 					    <div class="controls">
 					      	<label class="checkbox">
 						     	<?php echo $data['course_instructor'];?>
 						    </label>
 					    </div>
 					  </div>
+                      </br>
 					  <div class="form-actions">
 						<a class="btn" href="courses.php">Back</a>
 					  </div>

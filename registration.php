@@ -1,15 +1,28 @@
+<?php 
+
+session_start();
+if(!isset($_SESSION["fr_person_id"])){ // if "user" not set,
+	session_destroy();
+	header('Location: login.php');   // go to login page
+	exit;
+}
+
+$sessionid = $_SESSION['fr_person_id'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link   href="css/bootstrap.min.css" rel="stylesheet">
+    <link   href="css/bootstrap.css" rel="stylesheet">
     <script src="js/bootstrap.min.js"></script>
 </head>
  
 <body>
     <div class="container">
-            <div class="row">
-                <h3>Registered Courses</h3>
+            <div class="row page-header">
+                <a href="index.php" class="btn btn-primary" style="float: right;" >Main Menu</a>
+                <h1>Registered Courses</h1>
             </div>
             <div class="row">
                  
@@ -34,7 +47,7 @@
                                    echo '<td width=250>';
                                    echo '<a class="btn" href="register_read.php?course_id='.$row[0].'">Read</a>';
                                    echo '&nbsp;';
-                                   echo '<a class="btn btn-danger" href="register_delete.php?course_id='.$row[0].'">Delete</a>';
+                                   echo '<a class="btn btn-danger" href="register_delete.php?course_id='.$row[0].'">Drop</a>';
                                    echo '</td>';
                                    echo '</tr>';
                        }
@@ -44,7 +57,7 @@
                       </tbody>
                 </table>
                 <p>
-                    <a href="register.php" class="btn btn-success">Register for a Course</a>
+                    <a href="register.php" class="btn btn-success">Register</a>
                 </p>
         </div>
     </div> <!-- /container -->

@@ -1,4 +1,14 @@
 <?php 
+
+	session_start();
+if(!isset($_SESSION["fr_person_id"])){ // if "user" not set,
+	session_destroy();
+	header('Location: login.php');   // go to login page
+	exit;
+}
+
+$sessionid = $_SESSION['fr_person_id'];
+
 	require 'database.php';
 	$id = null;
 	
@@ -34,8 +44,8 @@
     <div class="container">
     
     			<div class="span10 offset1">
-    				<div class="row">
-		    			<h3>Delete Course</h3>
+    				<div class="row page-header">
+		    			<h1>Delete Course</h1>
 		    		</div>
 		    		
 	    			<form class="form-horizontal" action="course_delete.php" method="post">

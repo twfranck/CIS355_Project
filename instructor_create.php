@@ -1,5 +1,14 @@
 <?php 
 	
+		session_start();
+if(!isset($_SESSION["fr_person_id"])){ // if "user" not set,
+	session_destroy();
+	header('Location: login.php');   // go to login page
+	exit;
+}
+
+$sessionid = $_SESSION['fr_person_id'];
+
 	require 'database.php';
 
 	if ( !empty($_POST)) {
@@ -57,15 +66,16 @@
     <div class="container">
     
     			<div class="span10 offset1">
-    				<div class="row">
-		    			<h3>Add an Instructor</h3>
+    				<div class="row page-header">
+		    			<h1>Add an Instructor</h1>
 		    		</div>
     		
 	    			<form class="form-horizontal" action="instructor_create.php" method="post">
+                    <div class="col-lg-5">
 					  <div class="control-group <?php echo !empty($idError)?'error':'';?>">
 					    <label class="control-label">ID</label>
 					    <div class="controls">
-					      	<input name="instructor_id" type="text"  placeholder="ID" value="<?php echo !empty($id)?$id:'';?>">
+					      	<input class="form-control" name="instructor_id" type="text"  placeholder="ID" id="inputDefault" value="<?php echo !empty($id)?$id:'';?>">
 					      	<?php if (!empty($idError)): ?>
 					      		<span class="help-inline"><?php echo $idError;?></span>
 					      	<?php endif; ?>
@@ -74,7 +84,7 @@
 					  <div class="control-group <?php echo !empty($fNameError)?'error':'';?>">
 					    <label class="control-label">First Name</label>
 					    <div class="controls">
-					      	<input name="first_name" type="text"  placeholder="First" value="<?php echo !empty($fName)?$fName:'';?>">
+					      	<input class="form-control" name="first_name" type="text"  placeholder="First" id="inputDefault" value="<?php echo !empty($fName)?$fName:'';?>">
 					      	<?php if (!empty($fNameError)): ?>
 					      		<span class="help-inline"><?php echo $fNameError;?></span>
 					      	<?php endif; ?>
@@ -83,16 +93,18 @@
 					  <div class="control-group <?php echo !empty($lNameError)?'error':'';?>">
 					    <label class="control-label">Last Name</label>
 					    <div class="controls">
-					      	<input name="last_name" type="text"  placeholder="Last" value="<?php echo !empty($lName)?$lName:'';?>">
+					      	<input class="form-control" name="last_name" type="text"  placeholder="Last" id="inputDefault" value="<?php echo !empty($lName)?$lName:'';?>">
 					      	<?php if (!empty($lNameError)): ?>
 					      		<span class="help-inline"><?php echo $lNameError;?></span>
 					      	<?php endif;?>
 					    </div>
 					  </div>
+                      </br>
 					  <div class="form-actions">
 						  <button type="submit" class="btn btn-success">Add Instructor</button>
 						  <a class="btn" href="instructors.php">Back</a>
 						</div>
+                    </div>
 					</form>
 				</div>
 				
