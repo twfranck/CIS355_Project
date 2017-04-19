@@ -50,10 +50,12 @@ $sessionid = $_SESSION['fr_person_id'];
                                    echo '<td width=250>';
                                    echo '<a class="btn" href="course_read.php?course_id='.$row['course_id'].'">Read</a>';
                                    echo '&nbsp;';
-                                   echo '<a class="btn btn-success" href="course_update.php?course_id='.$row['course_id'].'">Update</a>';
-                                   echo '&nbsp;';
-                                   echo '<a class="btn btn-danger" href="course_delete.php?course_id='.$row['course_id'].'">Delete</a>';
-                                   echo '</td>';
+								   if($_SESSION['fr_person_title']=='admin'){
+									echo '<a class="btn btn-success" href="course_update.php?course_id='.$row['course_id'].'">Update</a>';
+									echo '&nbsp;';
+									echo '<a class="btn btn-danger" href="course_delete.php?course_id='.$row['course_id'].'">Delete</a>';
+                                   }
+								   echo '</td>';
                                    echo '</tr>';
                        }
                        Database::disconnect();
@@ -62,7 +64,10 @@ $sessionid = $_SESSION['fr_person_id'];
                       </tbody>
                 </table>
                 <p>
-                    <a href="course_create.php" class="btn btn-success">Add a New Course</a>
+					<?php
+						if($_SESSION['fr_person_title']=='admin')
+							echo '<a href="course_create.php" class="btn btn-success">Add New Course</a>';
+					?>
                 </p>
         </div>
     </div> <!-- /container -->

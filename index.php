@@ -28,10 +28,17 @@ $sessionid = $_SESSION['fr_person_id'];
 				<a href="courses.php" class="btn btn-info btn-block">Courses</a>
 			</p>
 			<p>
-				<a href="instructors.php" class="btn btn-info btn-block">Instructors</a>
+				<?php if($_SESSION['fr_person_title']=='admin')
+					echo '<a href="instructors.php" class="btn btn-info btn-block">Instructors</a>';
+				?>
 			</p>
 			<p>
-				<a href="registration.php" class="btn btn-info btn-block">Registered Courses</a>
+				<?php if($_SESSION['fr_person_title']=='user')
+					echo '<a href="registration.php" class="btn btn-info btn-block">Registered Courses</a>';
+				?>
+			</p>
+			<p>
+				<a href="profile.php" class="btn btn-info btn-block">Profile</a>
 			</p>
 			<p>
 				<a href="logout.php" class="btn btn-info btn-block">Logout</a>

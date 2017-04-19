@@ -7,8 +7,7 @@
 		$username = $_POST['username']; 
 		$password = $_POST['password'];
 		$passwordhash = MD5($password);
-		// echo $password . " " . $passwordhash; exit();
-		// robot 87b7cb79481f317bde90c116cf36084b
+
 			
 		// verify the username/password
 		$pdo = Database::connect();

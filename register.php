@@ -20,28 +20,16 @@ $sessionid = $_SESSION['fr_person_id'];
 		$id = $_POST['course_id'];
 		$instructor = $_POST['instructor_id'];
 		
-		// validate input
-		$valid = true;
-		if (empty($id)) {
-			$idError = 'Please enter an ID';
-			$valid = false;
-		}
-		
-		if (empty($instructor)) {
-			$instructorError = 'Please enter an instructor ID';
-			$valid = false;
-		} 
 		
 		// insert data
-		if ($valid) {
 			$pdo = Database::connect();
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$sql = "INSERT INTO registration (course_id,instructor_id) SELECT courses.course_id, instructors.instructor_id FROM courses, instructors WHERE courses.course_id = ? AND instructors.last_name = ?";
+			$sql = "INSERT INTO registration (course_id,instructor_id) SELECT courses.course_id, instructors.instructor_id FROM courses, instructors WHERE courses.course_id = ? AND instructors.instructor_id = ?";
 			$q = $pdo->prepare($sql);
-			$q->execute(array($id,$instructor));
+			$q->execute(array($id,$instructor));			
 			Database::disconnect();
 			header("Location: registration.php");
-		}
+
 	}
 ?>
 
@@ -63,25 +51,28 @@ $sessionid = $_SESSION['fr_person_id'];
 		    		</div>
     		
 	    			<form class="form-horizontal" action="register.php" method="post">
-                    <div class="col-lg-4">
-					  <div class="control-group <?php echo !empty($idError)?'error':'';?>">
-					    <label class="control-label">Course ID</label>
-					    <div class="controls">
-					      	<input class="form-control" name="course_id" type="text"  placeholder="CID" id="inputDefault" value="<?php echo !empty($id)?$id:'';?>">
-					      	<?php if (!empty($idError)): ?>
-					      		<span class="help-inline"><?php echo $idError;?></span>
-					      	<?php endif; ?>
-					    </div>
-					  </div>
-					  <div class="control-group <?php echo !empty($instructorError)?'error':'';?>">
-					    <label class="control-label">Instructor Name</label>
-					    <div class="controls">
-					      	<input class="form-control" name="instructor_id" type="text"  placeholder="Name" id="inputDefault" value="<?php echo !empty($instructor)?$instructor:'';?>">
-					      	<?php if (!empty($nameError)): ?>
-					      		<span class="help-inline"><?php echo $instructorError;?></span>
-					      	<?php endif; ?>
-					    </div>
-					  </div>
+
+					<div class="col-lg-4">
+                    <select class="form-control" id="select" name="course_id">
+					  <?php
+						$pdo = Database::connect();
+						$sql = 'SELECT * from courses ORDER BY course_id DESC';
+						foreach ($pdo->query($sql) as $row) {
+								echo '<option value="' . $row['course_id'] . '">' . $row['course_id'] . '</option>';
+						}
+						Database::disconnect();
+						?>
+					</select>
+                    <select class="form-control" id="select" name="instructor_id">
+					  <?php
+						$pdo = Database::connect();
+						$sql = 'SELECT * from instructors ORDER BY instructor_id DESC';
+						foreach ($pdo->query($sql) as $row) {
+								echo '<option value="' . $row['instructor_id'] . '">' . $row['last_name'] . '</option>';
+						}
+						Database::disconnect();
+						?>
+					</select>
                       </br>
 					  <div class="form-actions">
 						  <button type="submit" class="btn btn-success">Register Course</button>
